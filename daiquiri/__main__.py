@@ -1,4 +1,5 @@
 from datetime import datetime
+from time import sleep
 from argparse import ArgumentParser
 
 import sys
@@ -31,16 +32,23 @@ def daq_helper(args):
     elif (date == "2015-02-03"):
         log.info('Unhandled exception - scenario')
         i = 1/0
+    log.info('Waiting for operation to complete')
+    sleep(args.wait)
+    log.info('Operation completed')
     return 0
 
 
 def daq_subparser(sub_parsers):
-    args = sub_parsers.add_parser("daq", "DAQ execution")
+    args = sub_parsers.add_parser("daq", help="DAQ execution")
     args.add_argument('--date',
                      help='event date - in YYYY-MM-DD format - PST/PDT',
                      dest='date',
                      type=date_type,
                      required=True)
+    args.add_argument('--wait',
+                     help='Some value to simulate daq operation',
+                     dest='wait',
+                     default=30)
     args.set_defaults(func=daq_helper)
 
 
@@ -49,7 +57,7 @@ def staging_helper(args):
 
 
 def staging_subparser(sub_parsers):
-    args = sub_parsers.add_parser("staging", "Staging execution")
+    args = sub_parsers.add_parser("staging", help="Staging execution")
     args.add_argument('--batch-id',
                      help='Batch Id from the DP',
                      dest='batch_id',
@@ -74,4 +82,3 @@ def main(argv=None):
 
 if __name__ == '__main__':
     main()
-
