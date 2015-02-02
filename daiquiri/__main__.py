@@ -33,7 +33,7 @@ def daq_helper(args):
         log.info('Unhandled exception - scenario')
         i = 1/0
     log.info('Waiting for operation to complete')
-    sleep(args.wait)
+    sleep(float(args.wait))
     log.info('Operation completed')
     return 0
 
