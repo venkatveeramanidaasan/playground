@@ -54,6 +54,7 @@ def daq_subparser(sub_parsers):
 
 def staging_helper(args):
     log.info('Batch Id {}'.format(args.batch_id))
+    return 0
 
 
 def staging_subparser(sub_parsers):
